@@ -260,171 +260,172 @@ const Testimonials = () => {
   }, []);
 
   return (
-    <section className="py-20 bg-gradient-to-b from-background to-secondary/10 overflow-hidden">
+    <section className="py-20 bg-gradient-to-b from-background to-secondary/10">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="max-w-6xl mx-auto">
-          {/* Title */}
-          <div className="text-center mb-12">
-            <h2 className="text-section-mobile md:text-section-tablet lg:text-section-desktop font-bold font-lato mb-2 text-foreground">
-              What Our Users Say
-            </h2>
-            <p className="text-lg font-roboto text-muted-foreground">
-              Trusted by leading sports organizations worldwide
-            </p>
-          </div>
-
-          {/* Accessibility Announcements */}
-            <div 
-              className="sr-only" 
-              role="status" 
-              aria-live="polite"
-              aria-atomic="true"
-            >
-              {isPaused ? "Auto-scroll paused" : "Auto-scroll active"} - 
-              Showing testimonial {Math.floor(scrollPosition / (cardWidth.current + 32)) + 1} of {testimonials.length}.
-              Use arrow keys or H and L keys to navigate. Space or K to pause/resume auto-scroll. Home and End keys to jump to start or end.
+        <div className="max-w-[1400px] mx-auto">
+          <div className="max-w-6xl mx-auto">
+            {/* Title */}
+            <div className="text-center mb-12">
+              <h2 className="text-section-mobile md:text-section-tablet lg:text-section-desktop font-bold font-lato mb-2 text-foreground">
+                What Our Users Say
+              </h2>
+              <p className="text-lg font-roboto text-muted-foreground">
+                Trusted by leading sports organizations worldwide
+              </p>
             </div>
 
-          {/* Testimonials Container with Navigation */}
-          <div className="relative">
-            {/* Navigation Buttons */}
-            <button
-              onClick={() => handleNavigation('prev')}
-              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 md:-translate-x-4 z-10 p-1.5 md:p-2 rounded-full bg-background/80 backdrop-blur-sm border border-border shadow-lg hover:bg-background transition-colors hidden md:block focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background"
-              aria-label="Previous testimonial"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="text-foreground"
+            {/* Accessibility Announcements */}
+              <div 
+                className="sr-only" 
+                role="status" 
+                aria-live="polite"
+                aria-atomic="true"
               >
-                <path d="m15 18-6-6 6-6"/>
-              </svg>
-            </button>
+                {isPaused ? "Auto-scroll paused" : "Auto-scroll active"} - 
+                Showing testimonial {Math.floor(scrollPosition / (cardWidth.current + 32)) + 1} of {testimonials.length}.
+                Use arrow keys or H and L keys to navigate. Space or K to pause/resume auto-scroll. Home and End keys to jump to start or end.
+              </div>
 
-            <button
-              onClick={() => handleNavigation('next')}
-              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 md:translate-x-4 z-10 p-1.5 md:p-2 rounded-full bg-background/80 backdrop-blur-sm border border-border shadow-lg hover:bg-background transition-colors hidden md:block focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background"
-              aria-label="Next testimonial"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="text-foreground"
+            {/* Testimonials Container with Navigation */}
+            <div className="relative overflow-hidden">
+              {/* Navigation Buttons */}
+              <button
+                onClick={() => handleNavigation('prev')}
+                className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 md:-translate-x-4 z-10 p-1.5 md:p-2 rounded-full bg-background/80 backdrop-blur-sm border border-border shadow-lg hover:bg-background transition-colors hidden md:block focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background"
+                aria-label="Previous testimonial"
               >
-                <path d="m9 18 6-6-6-6"/>
-              </svg>
-            </button>
-
-            {/* Testimonials Scroll Container */}
-            <div 
-              ref={scrollRef}
-              className="flex gap-4 sm:gap-5 md:gap-6 lg:gap-8 overflow-visible scroll-smooth px-4 -mx-4 md:px-0 md:mx-0 transition-all duration-300 ease-in-out"
-              style={{
-                WebkitOverflowScrolling: 'touch',
-                scrollbarWidth: 'none',
-                msOverflowStyle: 'none',
-                willChange: 'transform',
-                transform: `translate3d(${-scrollPosition}px, 0, 0)`,
-                transition: isTouching ? 'none' : 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                backfaceVisibility: 'hidden',
-                WebkitFontSmoothing: 'antialiased',
-                perspective: '1000px',
-                WebkitPerspective: '1000px',
-                transformStyle: 'preserve-3d'
-              }}
-              onMouseEnter={() => setIsPaused(true)}
-              onMouseLeave={() => setIsPaused(false)}
-              onTouchStart={handleTouchStart}
-              onTouchMove={handleTouchMove}
-              onTouchEnd={handleTouchEnd}
-              role="region"
-              aria-label="Testimonials carousel"
-            >
-              {testimonials.map((testimonial, index) => (
-                <div
-                  key={index}
-                  className="testimonial-card flex-none w-[calc(100%-16px)] sm:w-[calc(50%-16px)] md:w-[calc(50%-20px)] lg:w-[calc(33.333%-24px)]"
-                  role="group"
-                  aria-roledescription="slide"
-                  aria-label={`Testimonial ${index + 1} of ${testimonials.length}`}
-                  aria-describedby={`testimonial-${index}-quote testimonial-${index}-author`}
-                  tabIndex={0}
-                  onKeyDown={handleKeyDown}
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="text-foreground"
                 >
-                  <div className="glass-card p-4 sm:p-5 md:p-6 rounded-xl sm:rounded-2xl h-full flex flex-col bg-card shadow-sm hover:shadow-md transition-shadow duration-300">
-                    {/* Quote */}
-                    <p id={`testimonial-${index}-quote`} className="text-foreground/80 font-roboto text-sm sm:text-base italic leading-relaxed mb-4 sm:mb-5 md:mb-6 flex-grow">
-                      "{testimonial.quote}"
-                    </p>
-                    
-                    {/* Author Info */}
-                    <div className="flex items-center mt-4">
-                      <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-primary/5 mr-3 sm:mr-4 overflow-hidden shrink-0">
-                        <div className="relative w-full h-full">
-                          <div 
-                            className="absolute inset-0 rounded-full bg-primary/5 animate-pulse"
-                            style={{ 
-                              backgroundSize: 'cover',
-                              backgroundPosition: 'center',
-                              filter: 'blur(8px)'
-                            }}
-                          />
-                          <img
-                            src={testimonial.image}
-                            alt={`${testimonial.author} - ${testimonial.title}`}
-                            loading="lazy"
-                            decoding="async"
-                            width={48}
-                            height={48}
-                            fetchPriority="low"
-                            className="relative w-full h-full rounded-full object-cover transition-all duration-300 scale-100 hover:scale-105"
-                            onLoad={(e) => {
-                              const img = e.target as HTMLImageElement;
-                              img.style.opacity = '1';
-                              img.style.transform = 'scale(1)';
-                            }}
-                            onError={(e) => {
-                              const img = e.target as HTMLImageElement;
-                              img.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="%236366f1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"%3E%3Cpath d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"%3E%3C/path%3E%3Ccircle cx="12" cy="7" r="4"%3E%3C/circle%3E%3C/svg%3E';
-                              img.style.opacity = '0.5';
-                              img.style.transform = 'scale(1)';
-                              img.style.padding = '0.5rem';
-                            }}
-                            style={{ opacity: 0, transform: 'scale(0.95)' }}
-                          />
+                  <path d="m15 18-6-6 6-6"/>
+                </svg>
+              </button>
+
+              <button
+                onClick={() => handleNavigation('next')}
+                className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 md:translate-x-4 z-10 p-1.5 md:p-2 rounded-full bg-background/80 backdrop-blur-sm border border-border shadow-lg hover:bg-background transition-colors hidden md:block focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background"
+                aria-label="Next testimonial"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="text-foreground"
+                >
+                  <path d="m9 18 6-6-6-6"/>
+                </svg>
+              </button>
+
+              {/* Testimonials Scroll Container */}
+              <div 
+                ref={scrollRef}
+                className="flex gap-4 sm:gap-5 md:gap-6 lg:gap-8 px-4 md:px-0 transition-all duration-300 ease-in-out"
+                style={{
+                  WebkitOverflowScrolling: 'touch',
+                  scrollbarWidth: 'none',
+                  msOverflowStyle: 'none',
+                  willChange: 'transform',
+                  transform: `translate3d(${-scrollPosition}px, 0, 0)`,
+                  transition: isTouching ? 'none' : 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                  backfaceVisibility: 'hidden',
+                  WebkitFontSmoothing: 'antialiased',
+                  perspective: '1000px',
+                  WebkitPerspective: '1000px',
+                  transformStyle: 'preserve-3d'
+                }}
+                onMouseEnter={() => setIsPaused(true)}
+                onMouseLeave={() => setIsPaused(false)}
+                onTouchStart={handleTouchStart}
+                onTouchMove={handleTouchMove}
+                onTouchEnd={handleTouchEnd}
+                role="region"
+                aria-label="Testimonials carousel"
+              >
+                {testimonials.map((testimonial, index) => (
+                  <div
+                    key={index}
+                    className="testimonial-card flex-none w-[280px] sm:w-[320px] md:w-[350px]"
+                    role="group"
+                    aria-roledescription="slide"
+                    aria-label={`Testimonial ${index + 1} of ${testimonials.length}`}
+                    aria-describedby={`testimonial-${index}-quote testimonial-${index}-author`}
+                    tabIndex={0}
+                    onKeyDown={handleKeyDown}
+                  >
+                    <div className="glass-card p-4 sm:p-5 md:p-6 rounded-xl sm:rounded-2xl h-full flex flex-col bg-card shadow-sm hover:shadow-md transition-shadow duration-300">
+                      {/* Quote */}
+                      <p id={`testimonial-${index}-quote`} className="text-foreground/80 font-roboto text-sm sm:text-base italic leading-relaxed mb-4 sm:mb-5 md:mb-6 flex-grow">
+                        "{testimonial.quote}"
+                      </p>
+                      
+                      {/* Author Info */}
+                      <div className="flex items-center mt-4">
+                        <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-primary/5 mr-3 sm:mr-4 overflow-hidden shrink-0">
+                          <div className="relative w-full h-full">
+                            <div 
+                              className="absolute inset-0 rounded-full bg-primary/5 animate-pulse"
+                              style={{ 
+                                backgroundSize: 'cover',
+                                backgroundPosition: 'center',
+                                filter: 'blur(8px)'
+                              }}
+                            />
+                            <img
+                              src={testimonial.image}
+                              alt={`${testimonial.author} - ${testimonial.title}`}
+                              loading="lazy"
+                              decoding="async"
+                              width={48}
+                              height={48}
+                              fetchPriority="low"
+                              className="relative w-full h-full rounded-full object-cover transition-all duration-300 scale-100 hover:scale-105"
+                              onLoad={(e) => {
+                                const img = e.target as HTMLImageElement;
+                                img.style.opacity = '1';
+                                img.style.transform = 'scale(1)';
+                              }}
+                              onError={(e) => {
+                                const img = e.target as HTMLImageElement;
+                                img.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="%236366f1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"%3E%3Cpath d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"%3E%3C/path%3E%3Ccircle cx="12" cy="7" r="4"%3E%3C/circle%3E%3C/svg%3E';
+                                img.style.opacity = '0.5';
+                                img.style.transform = 'scale(1)';
+                                img.style.padding = '0.5rem';
+                              }}
+                              style={{ opacity: 0, transform: 'scale(0.95)' }}
+                            />
+                          </div>
                         </div>
-                      </div>
-                      <div>
-                        <h4 id={`testimonial-${index}-author`} className="font-lato font-bold text-sm sm:text-base bg-clip-text text-transparent bg-gradient-to-r from-primary/90 to-primary/70">
-                          {testimonial.author}
-                        </h4>
-                        <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs sm:text-sm text-foreground/70 font-roboto">
-                          <span>{testimonial.title}</span>
-                          <span>|</span>
-                          <span className="text-primary/90">{testimonial.organization}</span>
+                        <div>
+                          <h4 id={`testimonial-${index}-author`} className="font-lato font-bold text-sm sm:text-base bg-clip-text text-transparent bg-gradient-to-r from-primary/90 to-primary/70">
+                            {testimonial.author}
+                          </h4>
+                          <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs sm:text-sm text-foreground/70 font-roboto">
+                            <span>{testimonial.title}</span>
+                            <span>|</span>
+                            <span className="text-primary/90">{testimonial.organization}</span>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-
           </div>
         </div>
       </div>
