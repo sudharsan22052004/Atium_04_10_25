@@ -238,7 +238,7 @@ const TrustedBy = () => {
           </div>
 
           {/* Customers Container with Navigation */}
-          <div className="relative">
+          <div className="relative overflow-hidden">
             {/* Navigation Buttons */}
             <button
               onClick={() => handleNavigation('prev')}
@@ -285,7 +285,7 @@ const TrustedBy = () => {
             {/* Customers Scroll Container */}
             <div 
               ref={scrollRef}
-              className="flex gap-4 sm:gap-5 md:gap-6 lg:gap-8 overflow-visible scroll-smooth px-4 -mx-4 md:px-0 md:mx-0 transition-all duration-300 ease-in-out"
+              className="flex gap-4 sm:gap-5 md:gap-6 lg:gap-8 px-4 md:px-0 transition-all duration-300 ease-in-out"
               style={{
                 WebkitOverflowScrolling: 'touch',
                 scrollbarWidth: 'none',
