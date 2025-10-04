@@ -3,38 +3,33 @@ import { cn } from "@/lib/utils";
 
 const customers = [
   {
-    name: "Elite Sports Club",
-    description: "Professional Sports",
+    name: "Army Sports Institute",
     image: "./customers/1.png"
   },
   {
-    name: "Champions Academy", 
-    description: "Training Institute",
+    name: "SAI",
     image: "./customers/2.png"
   },
   {
-    name: "Victory Athletics",
-    description: "Athletic Performance", 
+    name: "FFESSM",
     image: "./customers/3.png"
   },
   {
-    name: "Peak Performance",
-    description: "Sports Medicine",
+    name: "Sports and Youth Services, Maharashtra",
     image: "./customers/4.png"
-  },
+  },  
   {
-    name: "Premier League FC",
-    description: "Football Club",
+    name: "Boxing Federation of India",
     image: "./customers/5.png"
   },
   {
-    name: "Olympic Training",
-    description: "National Team",
+    name: "SK Academy",
+    // description: "National Team",
     image: "./customers/6.png"
   },
   {
-    name: "Global Sports Inc",
-    description: "Multi-Sport Organization",
+    name: "Atra - A sports Science Collective",
+    // description: "Multi-Sport Organization",
     image: "./customers/7.png"
   }
 ];
@@ -239,48 +234,7 @@ const TrustedBy = () => {
 
           {/* Customers Container with Navigation */}
           <div className="relative overflow-hidden">
-            {/* Navigation Buttons */}
-            <button
-              onClick={() => handleNavigation('prev')}
-              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 md:-translate-x-4 z-10 p-1.5 md:p-2 rounded-full bg-background/80 backdrop-blur-sm border border-border shadow-lg hover:bg-background transition-colors hidden md:block focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background"
-              aria-label="Previous customer"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="text-foreground"
-              >
-                <path d="m15 18-6-6 6-6"/>
-              </svg>
-            </button>
-
-            <button
-              onClick={() => handleNavigation('next')}
-              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 md:translate-x-4 z-10 p-1.5 md:p-2 rounded-full bg-background/80 backdrop-blur-sm border border-border shadow-lg hover:bg-background transition-colors hidden md:block focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background"
-              aria-label="Next customer"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="text-foreground"
-              >
-                <path d="m9 18 6-6-6-6"/>
-              </svg>
-            </button>
+            
 
             {/* Customers Scroll Container */}
             <div 

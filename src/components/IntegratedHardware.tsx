@@ -3,53 +3,43 @@ import { cn } from "@/lib/utils";
 
 const hardwares = [
   {
-    name: "Heart Rate Monitor",
-    description: "Fitness Tracking",
+    name: "COSMED",
     image: "./hardware/Cosmed.png"
   },
   {
-    name: "GPS Tracker", 
-    description: "Location Data",
+    name: "ERBA", 
     image: "./hardware/Erba.png"
   },
   {
-    name: "Smart Watch",
-    description: "Wearable Tech", 
+    name: "Microsoft Excel", 
     image: "./hardware/Excel.png"
   },
   {
-    name: "Motion Sensor",
-    description: "Movement Analysis",
+    name: "Firstbeat",
     image: "./hardware/firstbeat.png"
   },
   {
-    name: "Power Meter",
-    description: "Performance Data",
+    name: "GymAware",
     image: "./hardware/GymAware.png"
   },
   {
-    name: "Sleep Tracker",
-    description: "Recovery Monitoring",
+    name: "Hawkin Dynamics",
     image: "./hardware/Hawkin.png"
   },
   {
-    name: "Force Plate",
-    description: "Biomechanics",
+    name: "InBody",
     image: "./hardware/Inbody.png"
   },
   {
-    name: "EMG Sensor",
-    description: "Muscle Activity",
+    name: "Output",
     image: "./hardware/Output.png"
   },
   {
-    name: "Accelerometer",
-    description: "Motion Detection",
+    name: "Polar",
     image: "./hardware/Polar.png"
   },
   {
-    name: "Temperature Monitor",
-    description: "Body Heat",
+    name: "VALD Performance",
     image: "./hardware/VALD.png"
   },
   {
@@ -260,49 +250,7 @@ const IntegratedHardware = () => {
 
             {/* Hardwares Container with Navigation */}
             <div className="relative overflow-hidden">
-              {/* Navigation Buttons */}
-              <button
-                onClick={() => handleNavigation('prev')}
-                className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 md:-translate-x-4 z-10 p-1.5 md:p-2 rounded-full bg-background/80 backdrop-blur-sm border border-border shadow-lg hover:bg-background transition-colors hidden md:block focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background "
-                aria-label="Previous hardware"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="text-foreground"
-                >
-                  <path d="m15 18-6-6 6-6"/>
-                </svg>
-              </button>
-
-              <button
-                onClick={() => handleNavigation('next')}
-                className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 md:translate-x-4 z-10 p-1.5 md:p-2 rounded-full bg-background/80 backdrop-blur-sm border border-border shadow-lg hover:bg-background transition-colors hidden md:block focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background"
-                aria-label="Next hardware"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="text-foreground"
-                >
-                  <path d="m9 18 6-6-6-6"/>
-                </svg>
-              </button>
-
+              
               {/* Hardwares Scroll Container */}
               <div
                 ref={scrollRef}
