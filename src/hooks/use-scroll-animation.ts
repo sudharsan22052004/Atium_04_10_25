@@ -25,13 +25,13 @@ function usePrefersReducedMotion(): boolean {
   return prefersReducedMotion;
 }
 
-export function useScrollAnimation({
+export function useScrollAnimation<T extends HTMLElement = HTMLElement>({
   threshold = 0.1,
   rootMargin = '0px',
   once = true,
   throttle = 100
 }: ScrollAnimationOptions = {}) {
-  const ref = useRef<HTMLElement>(null);
+  const ref = useRef<T>(null);
   const [isVisible, setIsVisible] = useState(false);
   const [hasAnimated, setHasAnimated] = useState(false);
   const throttleTimeout = useRef<number | null>(null);

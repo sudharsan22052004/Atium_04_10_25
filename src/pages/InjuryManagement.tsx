@@ -17,9 +17,9 @@ const InjuryManagement = () => {
   }, []);
 
   // Scroll animation hooks for different sections
-  const heroAnimation = useScrollAnimation();
-  const modulesAnimation = useScrollAnimation();
-  const benefitsAnimation = useScrollAnimation();
+  const heroAnimation = useScrollAnimation<HTMLDivElement>();
+  const modulesAnimation = useScrollAnimation<HTMLDivElement>();
+  const benefitsAnimation = useScrollAnimation<HTMLDivElement>();
 
   const modules = [
     {

@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Users, Trophy, Monitor, BarChart3, Bot, Calendar, Dumbbell, Globe, Settings, ClipboardCheck, Activity, Shield, Stethoscope } from "lucide-react";
+import { Users, Trophy, Monitor, BarChart3, Bot, Calendar, Dumbbell, Globe, Settings, ClipboardCheck, Activity, Shield, Stethoscope, Download } from "lucide-react";
 import Testimonials from "@/components/Testimonials";
 import AnimatedCounter from "@/components/AnimatedCounter";
 import FeatureCard from "@/components/FeatureCard";
@@ -17,15 +17,15 @@ const Features = () => {
   }, []);
 
   // Scroll animation hooks for different sections
-  const heroAnimation = useScrollAnimation();
-  const pillarsAnimation = useScrollAnimation();
-  const platformAnimation = useScrollAnimation();
-  const trainingAnimation = useScrollAnimation();
-  const monitoringAnimation = useScrollAnimation();
-  const healthAnimation = useScrollAnimation();
-  const adminAnimation = useScrollAnimation();
-  const customizationAnimation = useScrollAnimation();
-  const dashboardAnimation = useScrollAnimation();
+  const heroAnimation = useScrollAnimation<HTMLDivElement>();
+  const pillarsAnimation = useScrollAnimation<HTMLDivElement>();
+  const platformAnimation = useScrollAnimation<HTMLDivElement>();
+  const trainingAnimation = useScrollAnimation<HTMLDivElement>();
+  const monitoringAnimation = useScrollAnimation<HTMLDivElement>();
+  const healthAnimation = useScrollAnimation<HTMLDivElement>();
+  const adminAnimation = useScrollAnimation<HTMLDivElement>();
+  const customizationAnimation = useScrollAnimation<HTMLDivElement>();
+  const dashboardAnimation = useScrollAnimation<HTMLDivElement>();
 
   const pillars = [
     {
@@ -170,6 +170,11 @@ const Features = () => {
       icon: Settings,
       title: "Feature Configuration",
       description: "Turn features on/off, customize access by roles, and tailor the platform to your needs"
+    },
+    {
+      icon: Download,
+      title: "Downloadable Report",
+      description: "Generate and download comprehensive reports in various formats for analysis and sharing"
     }
   ];
 
@@ -368,7 +373,7 @@ const Features = () => {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 max-w-7xl mx-auto">
               {customizations.map((custom, index) => (
                 <div key={index} className={`glass-card p-6 rounded-xl text-center ${customizationAnimation.isVisible ? 'animate-fade-up' : 'opacity-0'}`} style={{ animationDelay: customizationAnimation.isVisible ? `${index * 0.1}s` : '0s' }}>
                   <div className="bg-primary/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">

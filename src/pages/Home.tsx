@@ -19,10 +19,10 @@ const Home = () => {
   }, []);
 
   // Scroll animation hooks for different sections
-  const heroAnimation = useScrollAnimation();
-  const dashboardAnimation = useScrollAnimation();
-  const featuresAnimation = useScrollAnimation();
-  const resultsAnimation = useScrollAnimation();
+  const heroAnimation = useScrollAnimation<HTMLDivElement>();
+  const dashboardAnimation = useScrollAnimation<HTMLDivElement>();
+  const featuresAnimation = useScrollAnimation<HTMLDivElement>();
+  const resultsAnimation = useScrollAnimation<HTMLDivElement>();
 
   const features = [
     {
