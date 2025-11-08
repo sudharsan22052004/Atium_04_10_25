@@ -1,21 +1,27 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
-const customers = [
+interface CustomerData {
+  name: string;
+  image: string;
+  description?: string;
+}
+
+const customers: CustomerData[] = [
   {
     name: "Army Sports Institute",
     image: "./customers/1.png"
   },
   {
-    name: "SAI",
+    name: "Sports Authority of India",
     image: "./customers/2.png"
   },
   {
-    name: "FFESSM",
+    name: "Finswimming Federation of France",
     image: "./customers/3.png"
   },
   {
-    name: "Sports and Youth Services, Maharashtra",
+    name: "Mission Lakshyavedh, by Maharashtra Government",
     image: "./customers/4.png"
   },  
   {
@@ -23,7 +29,7 @@ const customers = [
     image: "./customers/5.png"
   },
   {
-    name: "SK Academy",
+    name: "SK Table Tennis Center",
     // description: "National Team",
     image: "./customers/6.png"
   },
@@ -163,9 +169,24 @@ const TrustedBy = () => {
     setIsPaused(false);
   }, [scrollPosition]);
 
+  // Helper function to calculate card width
+  const calculateCardWidth = useCallback(() => {
+    const container = scrollRef.current;
+    if (!container) return;
+
+    const items = container.querySelectorAll('.customer-card');
+    if (items.length === 0) return;
+
+    const firstCard = items[0] as HTMLElement;
+    cardWidth.current = firstCard.offsetWidth;
+  }, []);
+
   const scroll = useCallback(() => {
     const container = scrollRef.current;
-    if (!container || isPaused) return;
+    if (!container || isPaused) {
+      animationFrameRef.current = undefined;
+      return;
+    }
 
     const gap = window.innerWidth >= 1024 ? 32 : window.innerWidth >= 768 ? 24 : 16;
     const numVisible = window.innerWidth >= 1024 ? 3 : window.innerWidth >= 768 ? 2 : 1;
@@ -182,32 +203,57 @@ const TrustedBy = () => {
       return newPosition;
     });
 
-    animationFrameRef.current = requestAnimationFrame(scroll);
+    // Continue animation loop only if not paused and container still exists
+    if (!isPaused && container) {
+      animationFrameRef.current = requestAnimationFrame(scroll);
+    } else {
+      animationFrameRef.current = undefined;
+    }
   }, [isPaused]);
 
+  // Start/stop auto-scroll
   useEffect(() => {
+    // Cancel any existing animation frame before starting a new one
+    if (animationFrameRef.current) {
+      cancelAnimationFrame(animationFrameRef.current);
+      animationFrameRef.current = undefined;
+    }
+
     if (!isPaused) {
       animationFrameRef.current = requestAnimationFrame(scroll);
     }
+    
     return () => {
       if (animationFrameRef.current) {
         cancelAnimationFrame(animationFrameRef.current);
+        animationFrameRef.current = undefined;
       }
     };
   }, [isPaused, scroll]);
 
+  // Calculate card width on mount and window resize
   useEffect(() => {
-    const container = scrollRef.current;
-    if (!container) return;
-
-    const items = container.querySelectorAll('.customer-card');
-    if (items.length === 0) return;
-
-    const firstCard = items[0] as HTMLElement;
-    cardWidth.current = firstCard.offsetWidth;
-
+    calculateCardWidth();
     setScrollPosition(0);
-  }, []);
+
+    // Handle window resize
+    const handleResize = () => {
+      calculateCardWidth();
+      // Reset scroll position to prevent out-of-bounds after resize
+      setScrollPosition(prev => {
+        const gap = window.innerWidth >= 1024 ? 32 : window.innerWidth >= 768 ? 24 : 16;
+        const numVisible = window.innerWidth >= 1024 ? 3 : window.innerWidth >= 768 ? 2 : 1;
+        const itemWidth = cardWidth.current + gap;
+        const maxScroll = (customers.length - numVisible) * itemWidth;
+        return Math.min(prev, maxScroll);
+      });
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [calculateCardWidth]);
 
   return (
     <section className="py-20 bg-gradient-to-b from-background to-secondary/10">
@@ -288,9 +334,11 @@ const TrustedBy = () => {
                     <h3 id={`customer-${index}-name`} className="text-lg font-semibold font-lato text-foreground text-center">
                       {customer.name}
                     </h3>
-                    <p id={`customer-${index}-desc`} className="text-sm font-roboto text-muted-foreground text-center mt-2">
-                      {customer.description}
-                    </p>
+                    {customer.description && (
+                      <p id={`customer-${index}-desc`} className="text-sm font-roboto text-muted-foreground text-center mt-2">
+                        {customer.description}
+                      </p>
+                    )}
                   </div>
                 </div>
               ))}

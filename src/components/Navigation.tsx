@@ -32,7 +32,7 @@ const Navigation = () => {
               )}
             />
             <span className="text-xl font-bold font-lato text-primary">
-              ATIUMSports
+              ATIUM Sports
             </span>
           </Link>
 

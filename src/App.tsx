@@ -3,7 +3,6 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import FloatingTrialButton from "./components/FloatingTrialButton";
 import Home from "./pages/Home";
 import InjuryManagement from "./pages/InjuryManagement";
 import Features from "./pages/Features";
@@ -22,7 +21,6 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <FloatingTrialButton />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/injury-management" element={<InjuryManagement />} />

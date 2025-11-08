@@ -78,7 +78,7 @@ const Testimonials = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [isPaused, setIsPaused] = useState(false);
   const [scrollPosition, setScrollPosition] = useState(0);
-  const scrollSpeed = 1.0; // pixels per frame - reduced for smoother scrolling
+  const scrollSpeed = 2.0; // pixels per frame - reduced for smoother scrolling
   const animationFrameRef = useRef<number>();
   const cardWidth = useRef<number>(0);
   const touchStart = useRef<number>(0);
@@ -207,9 +207,24 @@ const Testimonials = () => {
     setIsPaused(false);
   }, [scrollPosition]);
 
+  // Helper function to calculate card width
+  const calculateCardWidth = useCallback(() => {
+    const container = scrollRef.current;
+    if (!container) return;
+
+    const items = container.querySelectorAll('.testimonial-card');
+    if (items.length === 0) return;
+
+    const firstCard = items[0] as HTMLElement;
+    cardWidth.current = firstCard.offsetWidth;
+  }, []);
+
   const scroll = useCallback(() => {
     const container = scrollRef.current;
-    if (!container || isPaused) return;
+    if (!container || isPaused) {
+      animationFrameRef.current = undefined;
+      return;
+    }
 
     const gap = window.innerWidth >= 1024 ? 32 : window.innerWidth >= 768 ? 24 : 16;
     const numVisible = window.innerWidth >= 1024 ? 3 : window.innerWidth >= 768 ? 2 : 1;
@@ -227,37 +242,57 @@ const Testimonials = () => {
       return newPosition;
     });
 
-    animationFrameRef.current = requestAnimationFrame(scroll);
+    // Continue animation loop only if not paused and container still exists
+    if (!isPaused && container) {
+      animationFrameRef.current = requestAnimationFrame(scroll);
+    } else {
+      animationFrameRef.current = undefined;
+    }
   }, [isPaused]);
 
   // Start/stop auto-scroll
   useEffect(() => {
+    // Cancel any existing animation frame before starting a new one
+    if (animationFrameRef.current) {
+      cancelAnimationFrame(animationFrameRef.current);
+      animationFrameRef.current = undefined;
+    }
+
     if (!isPaused) {
       animationFrameRef.current = requestAnimationFrame(scroll);
     }
+    
     return () => {
       if (animationFrameRef.current) {
         cancelAnimationFrame(animationFrameRef.current);
+        animationFrameRef.current = undefined;
       }
     };
   }, [isPaused, scroll]);
 
-
-  // Calculate card width and set up scroll
+  // Calculate card width on mount and window resize
   useEffect(() => {
-    const container = scrollRef.current;
-    if (!container) return;
-
-    const items = container.querySelectorAll('.testimonial-card');
-    if (items.length === 0) return;
-
-    // Calculate card width
-    const firstCard = items[0] as HTMLElement;
-    cardWidth.current = firstCard.offsetWidth;
-
-    // Initialize scroll position to show first item
+    calculateCardWidth();
     setScrollPosition(0);
-  }, []);
+
+    // Handle window resize
+    const handleResize = () => {
+      calculateCardWidth();
+      // Reset scroll position to prevent out-of-bounds after resize
+      setScrollPosition(prev => {
+        const gap = window.innerWidth >= 1024 ? 32 : window.innerWidth >= 768 ? 24 : 16;
+        const numVisible = window.innerWidth >= 1024 ? 3 : window.innerWidth >= 768 ? 2 : 1;
+        const itemWidth = cardWidth.current + gap;
+        const maxScroll = (testimonials.length - numVisible) * itemWidth;
+        return Math.min(prev, maxScroll);
+      });
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [calculateCardWidth]);
 
   return (
     <section className="py-20 bg-gradient-to-b from-background to-secondary/10">
