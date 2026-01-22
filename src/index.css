@@ -444,10 +444,10 @@ section.stacking-section[class*="bg-gradient"]::after {
   pointer-events: none;
 }
 
-/* Smooth transitions for stacking effect */
+/* Smooth transitions for stacking effect and blur */
 @media (prefers-reduced-motion: no-preference) {
   .stacking-section {
-    will-change: transform;
+    will-change: transform, filter, opacity;
   }
 }
 
@@ -455,5 +455,7 @@ section.stacking-section[class*="bg-gradient"]::after {
 @media (prefers-reduced-motion: reduce) {
   .stacking-section {
     will-change: auto;
+    filter: none !important;
+    opacity: 1 !important;
   }
 }

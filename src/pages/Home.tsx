@@ -12,12 +12,21 @@ import TrustedBy from "@/components/TrustedBy";
 import IntegratedHardware from "@/components/IntegratedHardware";
 import VideoSection from "@/components/VideoSection";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
+import { useStackingScroll } from "@/hooks/use-stacking-scroll";
 
 const Home = () => {
   // Scroll to top when component mounts
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  // Stacking scroll effect with gradual blur
+  const { containerRef } = useStackingScroll({
+    maxBlur: 6,           // Maximum blur in pixels
+    maxOpacityReduction: 0.2,  // Opacity goes from 1.0 to 0.8
+    blurDistance: 300,    // Blur increases over 300px of scroll
+    enableBlur: true
+  });
 
   // Scroll animation hooks for different sections
   const heroAnimation = useScrollAnimation<HTMLDivElement>({ initialInView: true });
@@ -90,7 +99,7 @@ const Home = () => {
   return (
     <>
       <Navigation />
-      <main className="pt-16 stacking-container">
+      <main ref={containerRef} className="pt-16 stacking-container">
         {/* Hero Section - Section A */}
         <section
           className="stacking-section relative min-h-[90vh] flex items-center justify-center bg-gradient-to-b from-background to-secondary/10 overflow-hidden"
