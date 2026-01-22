@@ -8,6 +8,7 @@ import Footer from "@/components/Footer";
 import SecurityCompliance from "@/components/SecurityCompliance";
 import TrustedBy from "@/components/TrustedBy";
 import IntegratedHardware from "@/components/IntegratedHardware";
+import VideoSection from "@/components/VideoSection";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 
 const InjuryManagement = () => {
@@ -17,7 +18,7 @@ const InjuryManagement = () => {
   }, []);
 
   // Scroll animation hooks for different sections
-  const heroAnimation = useScrollAnimation<HTMLDivElement>();
+  const heroAnimation = useScrollAnimation<HTMLDivElement>({ initialInView: true });
   const modulesAnimation = useScrollAnimation<HTMLDivElement>();
   const benefitsAnimation = useScrollAnimation<HTMLDivElement>();
 
@@ -222,6 +223,7 @@ const InjuryManagement = () => {
       <TrustedBy />
       <Testimonials />
       <SecurityCompliance />
+      <VideoSection />
       <Footer />
     </>
   );

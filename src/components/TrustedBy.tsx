@@ -44,7 +44,7 @@ const TrustedBy = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [isPaused, setIsPaused] = useState(false);
   const [scrollPosition, setScrollPosition] = useState(0);
-  const scrollSpeed = 1.0;
+  const scrollSpeed = 2.0;
   const animationFrameRef = useRef<number>();
   const cardWidth = useRef<number>(0);
   const touchStart = useRef<number>(0);

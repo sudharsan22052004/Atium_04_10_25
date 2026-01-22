@@ -10,6 +10,7 @@ import Footer from "@/components/Footer";
 import SecurityCompliance from "@/components/SecurityCompliance";
 import TrustedBy from "@/components/TrustedBy";
 import IntegratedHardware from "@/components/IntegratedHardware";
+import VideoSection from "@/components/VideoSection";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 
 const Home = () => {
@@ -19,7 +20,7 @@ const Home = () => {
   }, []);
 
   // Scroll animation hooks for different sections
-  const heroAnimation = useScrollAnimation<HTMLDivElement>();
+  const heroAnimation = useScrollAnimation<HTMLDivElement>({ initialInView: true });
   const dashboardAnimation = useScrollAnimation<HTMLDivElement>();
   const featuresAnimation = useScrollAnimation<HTMLDivElement>();
   const resultsAnimation = useScrollAnimation<HTMLDivElement>();
@@ -89,9 +90,12 @@ const Home = () => {
   return (
     <>
       <Navigation />
-      <main className="pt-16">
-        {/* Hero Section */}
-        <section className="relative min-h-[90vh] flex items-center justify-center bg-gradient-to-b from-background to-secondary/10 overflow-hidden">
+      <main className="pt-16 stacking-container">
+        {/* Hero Section - Section A */}
+        <section
+          className="stacking-section relative min-h-[90vh] flex items-center justify-center bg-gradient-to-b from-background to-secondary/10 overflow-hidden"
+          style={{ zIndex: 1 }}
+        >
           {/* Video Background */}
           <video
             className="absolute inset-0 w-full h-full object-cover z-0"
@@ -149,8 +153,11 @@ const Home = () => {
           </div>
         </section>
 
-        {/* Dashboard Section */}
-        <section className="py-20 bg-primary">
+        {/* Dashboard Section - Section B */}
+        <section
+          className="stacking-section stacking-section-shadow py-20 bg-primary"
+          style={{ zIndex: 2 }}
+        >
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div ref={dashboardAnimation.ref} className={`grid grid-cols-1 lg:grid-cols-2 gap-8 items-center max-w-7xl mx-auto ${dashboardAnimation.isVisible ? 'animate-fade-up' : 'opacity-0'}`}>
               {/* Left Column - Content */}
@@ -175,8 +182,11 @@ const Home = () => {
           </div>
         </section>
 
-        {/* Features Grid */}
-        <section className="py-20 bg-background">
+        {/* Features Grid - Section C */}
+        <section
+          className="stacking-section stacking-section-shadow py-20 bg-background"
+          style={{ zIndex: 3 }}
+        >
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div ref={featuresAnimation.ref} className={`max-w-4xl mx-auto text-center mb-16 ${featuresAnimation.isVisible ? 'animate-fade-up' : 'opacity-0'}`}>
               <h2 className="text-section-mobile md:text-section-tablet lg:text-section-desktop font-semibold font-lato mb-4 text-foreground">
@@ -197,8 +207,11 @@ const Home = () => {
           </div>
         </section>
 
-        {/* Results Section */}
-        <section className="py-20 bg-gradient-to-b from-secondary/10 to-background">
+        {/* Results Section - Section D */}
+        <section
+          className="stacking-section stacking-section-shadow py-20 bg-gradient-to-b from-secondary/10 to-background"
+          style={{ zIndex: 4 }}
+        >
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div ref={resultsAnimation.ref} className={`max-w-4xl mx-auto text-center mb-16 ${resultsAnimation.isVisible ? 'animate-fade-up' : 'opacity-0'}`}>
               <h2 className="text-section-mobile md:text-section-tablet lg:text-section-desktop font-semibold font-lato mb-4 text-foreground">
@@ -226,12 +239,55 @@ const Home = () => {
             </div>
           </div>
         </section>
+
+        {/* Integrated Hardware - Section E */}
+        <div
+          className="stacking-section stacking-section-shadow"
+          style={{ zIndex: 5 }}
+        >
+          <IntegratedHardware />
+        </div>
+
+        {/* Trusted By - Section F */}
+        <div
+          className="stacking-section stacking-section-shadow"
+          style={{ zIndex: 6 }}
+        >
+          <TrustedBy />
+        </div>
+
+        {/* Testimonials - Section G */}
+        <div
+          className="stacking-section stacking-section-shadow"
+          style={{ zIndex: 7 }}
+        >
+          <Testimonials />
+        </div>
+
+        {/* Security Compliance - Section H */}
+        <div
+          className="stacking-section stacking-section-shadow"
+          style={{ zIndex: 8 }}
+        >
+          <SecurityCompliance />
+        </div>
+
+        {/* Video Section - Section I */}
+        <div
+          className="stacking-section stacking-section-shadow"
+          style={{ zIndex: 9 }}
+        >
+          <VideoSection />
+        </div>
+
+        {/* Footer - Final Section */}
+        <div
+          className="stacking-section stacking-section-shadow"
+          style={{ zIndex: 10 }}
+        >
+          <Footer />
+        </div>
       </main>
-      <IntegratedHardware />
-      <TrustedBy />
-      <Testimonials />
-      <SecurityCompliance />
-      <Footer />
     </>
   );
 };

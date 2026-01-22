@@ -9,6 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import VideoSection from "@/components/VideoSection";
 
 const formSchema = z.object({
   fullName: z.string().min(2, { message: "Name must be at least 2 characters" }).max(100),
@@ -163,6 +164,7 @@ const RequestDemo = () => {
           </div>
         </section>
       </main>
+      <VideoSection />
       <Footer />
     </>
   );
