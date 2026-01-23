@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import VideoSection from "@/components/VideoSection";
 
 const ContactUs = () => {
   // Scroll to top when component mounts
@@ -17,6 +18,7 @@ const ContactUs = () => {
           <p>Contact information coming soon.</p>
         </div>
       </div>
+      <VideoSection />
       <Footer />
     </>
   );

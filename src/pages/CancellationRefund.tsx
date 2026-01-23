@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import VideoSection from "@/components/VideoSection";
 
 const CancellationRefund = () => {
   // Scroll to top when component mounts
@@ -90,6 +91,7 @@ const CancellationRefund = () => {
           </p>
         </div>
       </div>
+      <VideoSection />
       <Footer />
     </>
   );

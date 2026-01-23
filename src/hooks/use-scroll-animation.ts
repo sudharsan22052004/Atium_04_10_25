@@ -5,6 +5,7 @@ interface ScrollAnimationOptions {
   rootMargin?: string;
   once?: boolean;
   throttle?: number;
+  initialInView?: boolean;
 }
 
 function usePrefersReducedMotion(): boolean {
@@ -29,11 +30,12 @@ export function useScrollAnimation<T extends HTMLElement = HTMLElement>({
   threshold = 0.1,
   rootMargin = '0px',
   once = true,
-  throttle = 100
+  throttle = 0,
+  initialInView = false
 }: ScrollAnimationOptions = {}) {
   const ref = useRef<T>(null);
-  const [isVisible, setIsVisible] = useState(false);
-  const [hasAnimated, setHasAnimated] = useState(false);
+  const [isVisible, setIsVisible] = useState(initialInView);
+  const [hasAnimated, setHasAnimated] = useState(initialInView);
   const throttleTimeout = useRef<number | null>(null);
   const prefersReducedMotion = usePrefersReducedMotion();
 
@@ -46,16 +48,10 @@ export function useScrollAnimation<T extends HTMLElement = HTMLElement>({
 
     const observer = new IntersectionObserver(
       (entries) => {
-        // Clear any existing throttle timeout
-        if (throttleTimeout.current) {
-          window.clearTimeout(throttleTimeout.current);
-        }
-
-        // Throttle the animation updates
-        throttleTimeout.current = window.setTimeout(() => {
+        const updateVisibility = () => {
           const [entry] = entries;
           const isIntersecting = entry.isIntersecting;
-          
+
           if (isIntersecting) {
             setIsVisible(true);
             if (once) {
@@ -65,11 +61,19 @@ export function useScrollAnimation<T extends HTMLElement = HTMLElement>({
             setIsVisible(false);
           }
 
-          // Disconnect observer if element has animated and we only want to animate once
           if (once && isIntersecting) {
             observer.disconnect();
           }
-        }, throttle);
+        };
+
+        if (throttle > 0) {
+          if (throttleTimeout.current) {
+            window.clearTimeout(throttleTimeout.current);
+          }
+          throttleTimeout.current = window.setTimeout(updateVisibility, throttle);
+        } else {
+          updateVisibility();
+        }
       },
       {
         threshold,

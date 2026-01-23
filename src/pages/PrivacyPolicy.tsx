@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import VideoSection from "@/components/VideoSection";
 
 const PrivacyPolicy = () => {
   // Scroll to top when component mounts
@@ -392,6 +393,7 @@ const PrivacyPolicy = () => {
           </p>
         </div>
       </div>
+      <VideoSection />
       <Footer />
     </>
   );

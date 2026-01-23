@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import VideoSection from "@/components/VideoSection";
 
 const TermsAndConditions = () => {
   // Scroll to top when component mounts
@@ -229,6 +230,7 @@ const TermsAndConditions = () => {
           </p>
         </div>
       </div>
+      <VideoSection />
       <Footer />
     </>
   );
