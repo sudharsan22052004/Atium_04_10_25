@@ -11,7 +11,9 @@ import SecurityCompliance from "@/components/SecurityCompliance";
 import TrustedBy from "@/components/TrustedBy";
 import IntegratedHardware from "@/components/IntegratedHardware";
 import VideoSection from "@/components/VideoSection";
+import VideoSection from "@/components/VideoSection";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
+import { useStackingScroll } from "@/hooks/use-stacking-scroll";
 
 const Home = () => {
   // Scroll to top when component mounts
@@ -19,7 +21,16 @@ const Home = () => {
     window.scrollTo(0, 0);
   }, []);
 
+  // Stacking scroll effect with gradual blur
+  const { containerRef } = useStackingScroll({
+    maxBlur: 6,           // Maximum blur in pixels
+    maxOpacityReduction: 0.2,  // Opacity goes from 1.0 to 0.8
+    blurDistance: 300,    // Blur increases over 300px of scroll
+    enableBlur: true
+  });
+
   // Scroll animation hooks for different sections
+  const heroAnimation = useScrollAnimation<HTMLDivElement>({ initialInView: true });
   const heroAnimation = useScrollAnimation<HTMLDivElement>({ initialInView: true });
   const dashboardAnimation = useScrollAnimation<HTMLDivElement>();
   const featuresAnimation = useScrollAnimation<HTMLDivElement>();
@@ -90,9 +101,12 @@ const Home = () => {
   return (
     <>
       <Navigation />
-      <main className="pt-16">
-        {/* Hero Section */}
-        <section className="relative min-h-[90vh] flex items-center justify-center bg-gradient-to-b from-background to-secondary/10 overflow-hidden">
+      <main ref={containerRef} className="pt-16 stacking-container">
+        {/* Hero Section - Section A */}
+        <section
+          className="stacking-section relative min-h-[90vh] flex items-center justify-center bg-gradient-to-b from-background to-secondary/10 overflow-hidden"
+          style={{ zIndex: 1 }}
+        >
           {/* Video Background */}
           <video
             className="absolute inset-0 w-full h-full object-cover z-0"
@@ -150,8 +164,11 @@ const Home = () => {
           </div>
         </section>
 
-        {/* Dashboard Section */}
-        <section className="py-20 bg-primary">
+        {/* Dashboard Section - Section B */}
+        <section
+          className="stacking-section stacking-section-shadow py-20 bg-primary"
+          style={{ zIndex: 2 }}
+        >
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div ref={dashboardAnimation.ref} className={`grid grid-cols-1 lg:grid-cols-2 gap-8 items-center max-w-7xl mx-auto ${dashboardAnimation.isVisible ? 'animate-fade-up' : 'opacity-0'}`}>
               {/* Left Column - Content */}
@@ -176,8 +193,11 @@ const Home = () => {
           </div>
         </section>
 
-        {/* Features Grid */}
-        <section className="py-20 bg-background">
+        {/* Features Grid - Section C */}
+        <section
+          className="stacking-section stacking-section-shadow py-20 bg-background"
+          style={{ zIndex: 3 }}
+        >
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div ref={featuresAnimation.ref} className={`max-w-4xl mx-auto text-center mb-16 ${featuresAnimation.isVisible ? 'animate-fade-up' : 'opacity-0'}`}>
               <h2 className="text-section-mobile md:text-section-tablet lg:text-section-desktop font-semibold font-lato mb-4 text-foreground">
@@ -198,8 +218,11 @@ const Home = () => {
           </div>
         </section>
 
-        {/* Results Section */}
-        <section className="py-20 bg-gradient-to-b from-secondary/10 to-background">
+        {/* Results Section - Section D */}
+        <section
+          className="stacking-section stacking-section-shadow py-20 bg-gradient-to-b from-secondary/10 to-background"
+          style={{ zIndex: 4 }}
+        >
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div ref={resultsAnimation.ref} className={`max-w-4xl mx-auto text-center mb-16 ${resultsAnimation.isVisible ? 'animate-fade-up' : 'opacity-0'}`}>
               <h2 className="text-section-mobile md:text-section-tablet lg:text-section-desktop font-semibold font-lato mb-4 text-foreground">

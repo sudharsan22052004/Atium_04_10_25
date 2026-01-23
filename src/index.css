@@ -371,3 +371,91 @@ All colors MUST be HSL.
 .testimonials-scroll:hover {
   animation-play-state: paused;
 }
+
+/* Stacking Scroll Effect */
+.stacking-container {
+  position: relative;
+}
+
+.stacking-section {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  overflow: hidden;
+  /* Each section will have inline z-index for stacking order */
+}
+
+/* Ensure stacking sections that are also section elements have solid background */
+section.stacking-section {
+  position: sticky;
+  top: 0;
+}
+
+/* Solid background for sections with bg-primary */
+section.stacking-section.bg-primary {
+  background-color: hsl(var(--primary));
+}
+
+/* Solid background for sections with bg-background */
+section.stacking-section.bg-background {
+  background-color: hsl(var(--background));
+}
+
+/* Handle gradient backgrounds on direct section elements */
+section.stacking-section.bg-gradient-to-b,
+section.stacking-section[class*="bg-gradient"] {
+  position: relative;
+}
+
+section.stacking-section.bg-gradient-to-b::after,
+section.stacking-section[class*="bg-gradient"]::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: hsl(var(--background));
+  z-index: -2;
+  pointer-events: none;
+}
+
+/* Shadow effect for depth perception on stacking sections */
+.stacking-section-shadow {
+  box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* First stacking section doesn't need shadow */
+.stacking-section:first-child {
+  box-shadow: none;
+}
+
+/* Ensure wrapped component sections have solid background */
+.stacking-section-shadow > section,
+.stacking-section-shadow > footer {
+  position: relative;
+  background-color: hsl(var(--background));
+}
+
+/* Handle gradient backgrounds in wrapped components - add solid base layer */
+.stacking-section-shadow > section[class*="bg-gradient"]::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: hsl(var(--background));
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Smooth transitions for stacking effect and blur */
+@media (prefers-reduced-motion: no-preference) {
+  .stacking-section {
+    will-change: transform, filter, opacity;
+  }
+}
+
+/* Accessibility: Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .stacking-section {
+    will-change: auto;
+    filter: none !important;
+    opacity: 1 !important;
+  }
+}
