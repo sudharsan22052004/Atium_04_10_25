@@ -11,7 +11,6 @@ import SecurityCompliance from "@/components/SecurityCompliance";
 import TrustedBy from "@/components/TrustedBy";
 import IntegratedHardware from "@/components/IntegratedHardware";
 import VideoSection from "@/components/VideoSection";
-import VideoSection from "@/components/VideoSection";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 
 const Home = () => {
@@ -21,7 +20,6 @@ const Home = () => {
   }, []);
 
   // Scroll animation hooks for different sections
-  const heroAnimation = useScrollAnimation<HTMLDivElement>({ initialInView: true });
   const heroAnimation = useScrollAnimation<HTMLDivElement>({ initialInView: true });
   const dashboardAnimation = useScrollAnimation<HTMLDivElement>();
   const featuresAnimation = useScrollAnimation<HTMLDivElement>();

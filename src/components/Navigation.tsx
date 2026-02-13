@@ -12,6 +12,7 @@ const Navigation = () => {
     { name: "Performance Intelligence Platform", path: "/" },
     { name: "Injury Management", path: "/injury-management" },
     { name: "Features", path: "/features" },
+    { name: "Blog", path: "/blog" },
   ];
 
   const isActive = (path: string) => location.pathname === path;
